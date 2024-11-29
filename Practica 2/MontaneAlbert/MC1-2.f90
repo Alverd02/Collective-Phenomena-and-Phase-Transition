@@ -1,25 +1,24 @@
 PROGRAM P2
 IMPLICIT NONE
 
-INTEGER*4 L,SEED,i,j,MCTOT,n,IMC,IPAS,suma,DE
+INTEGER*4 L,SEED,i,j,MCTOT,n,IMC,IPAS,suma,DE,k
 INTEGER (kind=2),dimension (:,:),allocatable :: S
 INTEGER (kind=4),dimension (:),allocatable :: PBC
-REAL*8 genrand_real2,TEMP,delta,ene,magne,m,ENEBIS,W(8:8)
-
-CHARACTER*128 NOM
+REAL*8 genrand_real2,TEMP(5),delta,ene,magne,m,ENEBIS,W(8:8)
 
 
 SEED = 48185051
 CALL init_genrand(SEED)
 
+WRITE(*,*) "Dimensió de la xarxa (L):"
 READ(*,*) L 
+write(*,*) "5 Temperatures (TEMP): "
 READ(*,*) TEMP
+WRITE(*,*) "Passos total de Makarov (MCTOT):"
 READ(*,*) MCTOT
 
 allocate(S(1:L,1:L))
 allocate(PBC(0:L+1))
-
-WRITE(NOM,'("SIM-L",I0,"-TEMP",F5.3,"-MCTOT",I0)') L,TEMP,MCTOT
 
 
 DO i=1,L 
@@ -47,14 +46,14 @@ DO i =1,L
  PBC(i) = i
 END DO
 
-DO DE = 8,8
-W(DE) = dexp(dfloat(DE)/TEMP)
-END DO
-
 
 OPEN(11,file="MC.dat")
+
+
+DO k =1,5
 m = MAGNE(S)
 CALL ENERG(ENE,S,L,PBC)
+WRITE(11,*) "#",TEMP(k)
 WRITE(11,*) 0,ENE/n,ENE/n,M/n
 DO IMC = 1,MCTOT
     DO IPAS = 1,N
@@ -67,7 +66,7 @@ DO IMC = 1,MCTOT
     ENE = ENE + DE
     ELSE
         delta = genrand_real2()
-        IF (delta.lt.exp(-DE/TEMP)) then
+        IF (delta.lt.exp(-DE/TEMP(k))) then
             S(i,j) = -S(i,j)
             ENE = ENE + DE
         END IF
@@ -77,6 +76,9 @@ DO IMC = 1,MCTOT
     CALL ENERG(ENEBIS,S,L,PBC)
     WRITE(11,*) IMC,ENE/n,ENEBIS/n,M/n
 END DO
+WRITE(11,"(/)")
+END DO
+
 CLOSE(11)
 END PROGRAM
 
