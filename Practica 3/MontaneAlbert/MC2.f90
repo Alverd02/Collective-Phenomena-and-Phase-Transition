@@ -4,23 +4,15 @@ IMPLICIT NONE
 INTEGER*4 L,SEED,i,j,MCTOT,n,IMC,IPAS,suma,DE,k,MCINI,MCD,ISEED,NSEED
 INTEGER (kind=2),dimension (:,:),allocatable :: S
 INTEGER (kind=4),dimension (:),allocatable :: PBC
-REAL*8 genrand_real2,TEMP,delta,ene,magne,MAG,ENEBIS,W(8:8),SUM,SUME,SUME2,SUMM,SUMM2,SUMAM,TIME1,TIME2
+REAL*8 genrand_real2,TEMP,delta,ene,magne,MAG,ENEBIS,SUM,SUME,SUME2,SUMM,SUMM2,SUMAM,TIME1,TIME2
 CHARACTER :: DATE
 
 CALL CPU_TIME(TIME1)
 
-NSEED = 1000
-
+NSEED = 200
 SEED = 48185051
 CALL init_genrand(SEED)
 
-SUM = 0.d0
-SUME = 0.d0
-SUME2 = 0.d0
-
-SUMM = 0.0D0
-SUMM2 = 0.d0
-SUMAM = 0.D0
 
 WRITE(*,*) "Dimensió de la xarxa (L):"
 READ(*,*) L 
@@ -35,10 +27,6 @@ MCD = 10
 allocate(S(1:L,1:L))
 allocate(PBC(0:L+1))
 
-DO DE = 8,8
-W(DE) = dexp(dfloat(DE)/TEMP)
-END DO
-
 N = L*L
 
 PBC(0) = L
@@ -51,18 +39,27 @@ END DO
 
 OPEN(11,file="MC.dat")
 
+DO ISEED = 1,NSEED
 
-DO ISEED = 1,NSEED,1
+SUM = 0.d0
+SUME = 0.d0
+SUME2 = 0.d0
 
-    DO i=1,L 
-        DO j=1,L
-            IF (genrand_real2().lt.0.5D0) THEN 
-                S(i,j) = 1
+SUMM = 0.0D0
+SUMM2 = 0.d0
+SUMAM = 0.D0
+
+    DO i = 1, L
+        DO j = 1, L
+            IF (genrand_real2().LT.0.5D0) THEN
+                S(i, j) = 1
             ELSE
-                S(i,j) = -1
+                S(i, j) = -1
             END IF
         END DO
     END DO
+
+CALL ENERG(ENE,S,L,PBC)
 
 DO IMC = 1,MCTOT
     DO IPAS = 1,N
@@ -83,16 +80,14 @@ DO IMC = 1,MCTOT
     END DO
 
     IF (((IMC.GT.MCINI)).AND.(mod(IMC,MCD).EQ.0)) THEN
-        CALL ENERG(ENE,S,L,PBC)
-        MAG = MAGNE(S)
-
+        MAG = MAGNE(S,L)  
         SUM = SUM + 1.D0
 
         SUME = SUME + ENE
         SUME2 = SUME2 + ENE*ENE
 
         SUMM = SUMM + MAG
-        SUMAM = SUMAM + ABS(MAG)
+        SUMAM = SUMAM + DABS(MAG)
         SUMM2 = SUMM2 + MAG*MAG
     END IF
 
@@ -100,8 +95,15 @@ END DO
 
 END DO
 
-WRITE(11,*) SUME/(nseed*SUM*N),SUME2/(nseed*SUM*N),SUMM/(nseed*SUM*N),SUMAM/(nseed*SUM*N),SUMM2/(nseed*SUM*N)
-WRITE(11,*) sqrt(SUME2-SUME*SUME)/(sqrt(SUM)*N),sqrt(SUMM2-SUMM*SUMM)/(sqrt(SUM)*N),"polla"
+SUME = SUME/(SUM*N)
+SUME2 = SUME2/(SUM*N**2)
+SUMM = SUMM/(SUM*N)
+SUMAM = SUMAM/(SUM*N)
+SUMM2 = SUMM2/(SUM*N**2)
+
+WRITE(11,*) "ENE:",SUME,SUME2
+WRITE(11,*) "MAG: ",SUMM,SUMAM,SUMM2
+WRITE(11,*) "VARE, VARM: ",SUME2-SUME*SUME,SUMM2-SUMM*SUMM
 
 CLOSE(11)
 
@@ -126,10 +128,9 @@ END DO
 RETURN
 END
 
-REAL FUNCTION MAGNE(S)
+REAL*8 FUNCTION MAGNE(S,L)
 IMPLICIT NONE
 INTEGER*2 L
-PARAMETER (L=48)
 INTEGER*2 S(1:L,1:L),j,i,sum
 REAL*8 m
 sum = 0
