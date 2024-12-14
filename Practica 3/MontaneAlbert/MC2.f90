@@ -101,7 +101,7 @@ END DO
 END DO
 
 WRITE(11,*) SUME/(nseed*SUM*N),SUME2/(nseed*SUM*N),SUMM/(nseed*SUM*N),SUMAM/(nseed*SUM*N),SUMM2/(nseed*SUM*N)
-WRITE(11,*) sqrt(SUME2-SUME*SUME)/(sqrt(SUM)*N),sqrt(SUMM2-SUMM*SUMM)/(sqrt(SUM)*N)
+WRITE(11,*) sqrt(SUME2-SUME*SUME)/(sqrt(SUM)*N),sqrt(SUMM2-SUMM*SUMM)/(sqrt(SUM)*N),"polla"
 
 CLOSE(11)
 
