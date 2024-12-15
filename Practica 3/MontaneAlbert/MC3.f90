@@ -16,13 +16,11 @@ CALL init_genrand(SEED)
 
 WRITE(*,*) "Dimensió de la xarxa (L):"
 READ(*,*) L 
-write(*,*) "Temperatura (TEMP): "
-READ(*,*) TEMP
 WRITE(*,*) "Passos total de Makarov (MCTOT):"
 READ(*,*) MCTOT
 
-MCINI = 1000
-MCD = 10
+MCINI = 2000
+MCD = 20
 
 allocate(S(1:L,1:L))
 allocate(PBC(0:L+1))
@@ -37,10 +35,13 @@ DO i =1,L
 END DO
 
 
-OPEN(11,file="MC2.dat")
+OPEN(11,file="MC3.dat")
 
+TEMP = 1.4d0
+
+DO WHILE (TEMP.LE.3.4d0)
+WRITE(11,*) TEMP
 DO ISEED = 1,NSEED
-
 SUM = 0.d0
 SUME = 0.d0
 SUME2 = 0.d0
@@ -101,9 +102,11 @@ SUMM = SUMM/(SUM*N)
 SUMAM = SUMAM/(SUM*N)
 SUMM2 = SUMM2/(SUM*N**2)
 
-WRITE(11,*) "ENE:",SUME,SUME2
-WRITE(11,*) "MAG: ",SUMM,SUMAM,SUMM2
-WRITE(11,*) "VARE, VARM: ",sqrt(SUME2-SUME*SUME),sqrt(SUMM2-SUMM*SUMM)
+WRITE(11,*) TEMP,SUME,sqrt(SUME2-SUME*SUME),SUMAM,sqrt(SUMM2-SUMM*SUMM)
+
+TEMP = TEMP + 0.01D0
+
+END DO
 
 CLOSE(11)
 
@@ -112,6 +115,7 @@ CALL FDATE(DATE)
 
 WRITE(*,*) DATE
 WRITE(*,*) "CPUTIME = ", TIME2-TIME1
+
 END PROGRAM
 
 SUBROUTINE ENERG(ENE,S,L,PBC)
