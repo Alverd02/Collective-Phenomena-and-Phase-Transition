@@ -1,15 +1,15 @@
 PROGRAM P3
 IMPLICIT NONE
 
-INTEGER*4 L,SEED,i,j,MCTOT,n,IMC,IPAS,suma,DE,k,MCINI,MCD,ISEED,NSEED
+INTEGER*4 L,SEED,i,j,MCTOT,n,IMC,IPAS,suma,DE,k,MCINI,MCD,ISEED,NSEED,TPAS
 INTEGER (kind=2),dimension (:,:),allocatable :: S
 INTEGER (kind=4),dimension (:),allocatable :: PBC
-REAL*8 genrand_real2,TEMP,delta,ene,magne,MAG,ENEBIS,SUM,SUME,SUME2,SUMM,SUMM2,SUMAM,TIME1,TIME2
+REAL*8 genrand_real2,TEMP,delta,ene,magne,MAG,ENEBIS,SUM,SUME,SUME2,SUMM,SUMM2,SUMAM,TIME1,TIME2,W(-8:8),DT,TEMPF,TEMP0,c_v,x
 CHARACTER :: DATE
 
 CALL CPU_TIME(TIME1)
 
-NSEED = 200
+NSEED = 4
 SEED = 48185051
 CALL init_genrand(SEED)
 
@@ -37,10 +37,20 @@ END DO
 
 OPEN(11,file="MC3.dat")
 
-TEMP = 1.4d0
+TEMP0 = 1.4d0
+TEMPF = 3.4D0
+DT = 0.01D0
+TPAS = (-TEMP0+TEMPF)/DT
 
-DO WHILE (TEMP.LE.3.4d0)
-WRITE(11,*) TEMP
+DO k=0,TPAS
+TEMP = TEMP0 +K*DT
+
+DO DE = -8,8
+
+W(DE) = dexp(-1d0*DE/TEMP)
+
+END DO
+
 DO ISEED = 1,NSEED
 SUM = 0.d0
 SUME = 0.d0
@@ -73,7 +83,7 @@ DO IMC = 1,MCTOT
     ENE = ENE + DE
     ELSE
         delta = genrand_real2()
-        IF (delta.lt.exp(-DE/TEMP)) then
+        IF (delta.lt.W(DE)) then
             S(i,j) = -S(i,j)
             ENE = ENE + DE
         END IF
@@ -102,9 +112,11 @@ SUMM = SUMM/(SUM*N)
 SUMAM = SUMAM/(SUM*N)
 SUMM2 = SUMM2/(SUM*N**2)
 
-WRITE(11,*) TEMP,SUME,sqrt(SUME2-SUME*SUME),SUMAM,sqrt(SUMM2-SUMM*SUMM)
+c_v  = N*((SUME2-SUME*SUME)/TEMP*TEMP)
+x = N*((SUMM2-SUMAM*SUMAM)/TEMP)
 
-TEMP = TEMP + 0.01D0
+WRITE(11,*) TEMP,SUME,SUME2-SUME*SUME,SUMAM,SUMM2-SUMM*SUMM,c_v,x
+
 
 END DO
 
