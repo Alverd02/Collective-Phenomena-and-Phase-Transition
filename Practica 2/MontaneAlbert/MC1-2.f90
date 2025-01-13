@@ -4,7 +4,7 @@ IMPLICIT NONE
 INTEGER*4 L,SEED,i,j,MCTOT,n,IMC,IPAS,suma,DE,k
 INTEGER (kind=2),dimension (:,:),allocatable :: S
 INTEGER (kind=4),dimension (:),allocatable :: PBC
-REAL*8 genrand_real2,TEMP(5),delta,ene,magne,m,ENEBIS,W(8:8)
+REAL*8 genrand_real2,TEMP(6),delta,ene,magne,m,ENEBIS,W(8:8)
 
 
 SEED = 48185051
@@ -12,7 +12,7 @@ CALL init_genrand(SEED)
 
 WRITE(*,*) "Dimensió de la xarxa (L):"
 READ(*,*) L 
-write(*,*) "5 Temperatures (TEMP): "
+write(*,*) "6 Temperatures (TEMP): "
 READ(*,*) TEMP
 WRITE(*,*) "Passos total de Makarov (MCTOT):"
 READ(*,*) MCTOT
@@ -31,11 +31,6 @@ DO i=1,L
     END DO
 END DO
 
-OPEN(11,file="P1-configuration.conf")
-DO i=1,L
-WRITE(11,*) S(i,:)
-END DO
-CLOSE(11)
 
 N = L*L
 
@@ -47,10 +42,10 @@ DO i =1,L
 END DO
 
 
-OPEN(11,file="MC.dat")
+OPEN(11,file="convergencia.dat")
 
 
-DO k =1,5
+DO k =1,6
 m = MAGNE(S)
 CALL ENERG(ENE,S,L,PBC)
 WRITE(11,*) "#",TEMP(k)
@@ -73,8 +68,7 @@ DO IMC = 1,MCTOT
     END IF
     END DO
     m = MAGNE(S)
-    CALL ENERG(ENEBIS,S,L,PBC)
-    WRITE(11,*) IMC,ENE/n,ENEBIS/n,M/n
+    WRITE(11,*) IMC,ENE,M
 END DO
 WRITE(11,"(/)")
 END DO

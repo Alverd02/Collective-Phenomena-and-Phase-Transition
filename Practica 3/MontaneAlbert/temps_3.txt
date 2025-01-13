@@ -1,0 +1,5 @@
+L =8 200 temperatures 1.5-3.5 40000 passos 200 seeds 5645.75 sec
+L =16 200 temperatures 1.5-3.5 30000 passos 200 seeds 9423.0625
+L =32 95 temperatures 1.9-2.85 30000 passos 120 seeds 18537.585
+L =48 70 temperatures 2.0-2.7 30000 passos 120 seeds 26934.90625
+L =64 55 temperatures 2.10-2.64 30000 passos 120 seeds 44485.71875

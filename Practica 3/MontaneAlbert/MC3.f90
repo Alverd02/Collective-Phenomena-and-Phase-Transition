@@ -9,7 +9,7 @@ CHARACTER :: DATE
 
 CALL CPU_TIME(TIME1)
 
-NSEED = 4
+NSEED = 120
 SEED = 48185051
 CALL init_genrand(SEED)
 
@@ -35,10 +35,10 @@ DO i =1,L
 END DO
 
 
-OPEN(11,file="MC3.dat")
+OPEN(11,file="MC3-48.dat")
 
-TEMP0 = 1.4d0
-TEMPF = 3.4D0
+TEMP0 = 2.0d0
+TEMPF = 2.7D0
 DT = 0.01D0
 TPAS = (-TEMP0+TEMPF)/DT
 
@@ -75,7 +75,12 @@ CALL ENERG(ENE,S,L,PBC)
 DO IMC = 1,MCTOT
     DO IPAS = 1,N
     i = ceiling(genrand_real2()*L)
-    j = ceiling(genrand_real2()*L) 
+    j = ceiling(genrand_real2()*L)
+    if(j*i.eq. 0) then
+      print*,"(i =", i,", j=",j,")  <-- This should not happen but it does"
+      i = ceiling(genrand_real2()*L)
+      j = ceiling(genrand_real2()*L) 
+    end if 
     suma = S(i,PBC(j+1)) + S(i,PBC(j-1)) + S(PBC(1+i),j) + S(PBC(i-1),j)
     DE = 2*suma*S(i,j)
     IF (DE.LE.0.0D0) THEN
@@ -115,7 +120,7 @@ SUMM2 = SUMM2/(SUM*N**2)
 c_v  = N*((SUME2-SUME*SUME)/TEMP*TEMP)
 x = N*((SUMM2-SUMAM*SUMAM)/TEMP)
 
-WRITE(11,*) TEMP,SUME,SUME2-SUME*SUME,SUMAM,SUMM2-SUMM*SUMM,c_v,x
+WRITE(11,*) TEMP,SUME,sqrt(SUME2-SUME*SUME),SUMAM,sqrt(SUMM2-SUMM*SUMM),c_v,x
 
 
 END DO
@@ -146,7 +151,7 @@ END
 
 REAL*8 FUNCTION MAGNE(S,L)
 IMPLICIT NONE
-INTEGER*2 L
+INTEGER*4 L
 INTEGER*2 S(1:L,1:L),j,i,sum
 REAL*8 m
 sum = 0

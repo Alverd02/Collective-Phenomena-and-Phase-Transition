@@ -64,7 +64,12 @@ CALL ENERG(ENE,S,L,PBC)
 DO IMC = 1,MCTOT
     DO IPAS = 1,N
     i = ceiling(genrand_real2()*L)
-    j = ceiling(genrand_real2()*L) 
+    j = ceiling(genrand_real2()*L)
+        if(j*i.eq. 0) then
+      print*,"(i =", i,", j=",j,")  <-- This should not happen but it does"
+      i = ceiling(genrand_real2()*L)
+      j = ceiling(genrand_real2()*L) 
+    end if  
     suma = S(i,PBC(j+1)) + S(i,PBC(j-1)) + S(PBC(1+i),j) + S(PBC(i-1),j)
     DE = 2*suma*S(i,j)
     IF (DE.LE.0.0D0) THEN

@@ -5,9 +5,9 @@ INTEGER*4 L,SEED,i,j,MCTOT,n,IMC,IPAS
 PARAMETER (L=48)
 INTEGER*2 S(1:L,1:L),suma,DE
 INTEGER*4 PBC(0:L+1)
-REAL*8 genrand_real2,TEMP,delta,ene,magne,m,ENEBIS,W(8:8)
+REAL*8 genrand_real2,TEMP,delta,ene,magne,m,ENEBIS,W(-8:8)
 
-SEED = 48185051
+SEED = 48185054
 CALL init_genrand(SEED)
 
 DO i=1,L 
@@ -20,14 +20,10 @@ DO i=1,L
     END DO
 END DO
 
-OPEN(11,file="P1-configuration.conf")
-DO i=1,L
-WRITE(11,*) S(i,:)
-END DO
-CLOSE(11)
 
-TEMP = 1.3D0
-MCTOT = 3000
+
+TEMP = 1.5D0
+MCTOT = 10000
 N = L*L
 
 PBC(0) = L
@@ -37,9 +33,11 @@ DO i =1,L
  PBC(i) = i
 END DO
 
-DO DE = 8,8
+DO DE = -8,8
 W(DE) = dexp(dfloat(DE)/TEMP)
 END DO
+
+OPEN(11,file="convergencia_48185054.dat")
 
 CALL ENERG(ENE,S,L,PBC)
 
@@ -60,10 +58,17 @@ DO IMC = 1,MCTOT
         END IF
     END IF
     END DO
+      OPEN(12,file="configuration_48185054.conf")
+      DO i=1,L
+      WRITE(12,*) S(i,:)
+      END DO
+      CLOSE(12)
     m = MAGNE(S)
-    CALL ENERG(ENEBIS,S,L,PBC)
-    WRITE(*,*) IMC,ENE,ENEBIS,M
+    WRITE(11,*) IMC,ENE,m
 END DO
+CLOSE(11)
+
+
 
 END PROGRAM
 
@@ -83,7 +88,7 @@ END
 
 REAL FUNCTION MAGNE(S)
 IMPLICIT NONE
-INTEGER*2 L
+INTEGER*4 L
 PARAMETER (L=48)
 INTEGER*2 S(1:L,1:L),j,i,sum
 REAL*8 m

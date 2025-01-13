@@ -1,0 +1,5 @@
+T = 2.3 L = 8 MCTOT = 10000 temps = 8
+T = 2.3 L = 16 MCTOT = 10000 temps = 29.61
+T = 2.3 L = 32 MCTOT = 10000 temps = 121.46875
+T = 2.3 L = 64 MCTOT = 10000 temps = 491.203
+T = 2.3 L = 128 MCTOT = 10000 temps = 2075.297
