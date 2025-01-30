@@ -1,1 +1,1 @@
-# Ising Model
+# Collective-Phenomena-and-Phase-Transition
