@@ -7,4 +7,4 @@ The Ising model consists of discrete variables located in a grid (2D) which repr
 </p>
 The Hamiltionian of this system is:
 
-$$ H = -J\sum_s - h\sum_{i=1}^NS_i  $$
+$$ H = -J\sum_{ij} - h\sum_{i=1}^NS_i  $$
