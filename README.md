@@ -9,4 +9,4 @@ The Hamiltionian of this system is:
 
 $$ H = -J\sum_{ij}S_iS_j - h\sum_{i=1}^NS_i  $$
 
-Where J is the interaction with first neighbors and h is an external magnetic field. In this case I will work with  h = 0 and J > 0 (ferromagnetic interaction).
+Where J is the interaction with first neighbors, h is an external magnetic field, $$S_i$$ and $$S_j$$ are the spins of the particle i and j and N is the number of particlesS. In this case I will work with  h = 0 and J > 0 (ferromagnetic interaction).
