@@ -15,6 +15,10 @@ The study is centered in the mark of the canonical collectivity that has the par
 
 $$Z=\sum_ie^{\frac{E_i}{KbT}}$$
 
+This function gives a "weight" to each state of the system given its energy $E_i$ and temperature T. Each state has a probability:
+
+$$P_i=\frac{e^{\frac{E_i}{KbT}}}{Z}$$
+
 Given a temperature T the system will evolve in order to minimize the energy. We will be using the Metropolis algorithm, a single spin direction of the system will be chnaged and accepted or rejected depending of 
 
 
