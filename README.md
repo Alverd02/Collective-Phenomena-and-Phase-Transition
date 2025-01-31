@@ -8,4 +8,4 @@ The Ising model consists of discrete variables located in a grid (2D) which repr
 The Hamiltionian of this system is:
 
 $$ H = -J\sum_{ij}S_iS_j - h\sum_{i=1}^NS_i  $$
-Where J is the interaction with first neighbors and h is an external magnetic field. In this case I will work with  h = 0 and J > 0 (ferromagnetic interaction).
+
