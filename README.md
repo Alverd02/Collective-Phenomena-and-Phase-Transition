@@ -3,6 +3,6 @@ The report called "Model_de_Ising.pdf" is in catalan. I'm going to make a short 
 ## -Physics behind the program
 The Ising model consists of discrete variables located in a grid (2D) which represent the spin of the particles with values +1 or -1.
 <div style="text-align: center;">
-  <img src="Practica%201/MontaneAlbert/ex2.jpeg" alt="ex2" width="300"/>
+  <img src="Practica%201/MontaneAlbert/ex2.jpeg" alt="ex2" width="300" height="200"/>
 </div>
 
