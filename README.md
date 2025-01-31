@@ -11,8 +11,11 @@ $$ H = -J\sum_{ij}S_iS_j - h\sum_{i=1}^NS_i  $$
 
 Where J is the interaction with first neighbors, h is an external magnetic field, $$S_i$$ and $$S_j$$ are the spins of the particle i and j and N is the number of particlesS. In this case I will work with  h = 0 and J > 0 (ferromagnetic interaction).
 
+The study is centered in the mark of the canonical collectivity that has the partitional function:
 
-Given a temperature T the system will evolve with the distribution $e^{\frac{H}{KbT}}$ in order to minimize the energy. We will change a single spin direction of the system and compute the energy before and after the change. If 
+$$Z=\sum_ie^{\frac{E_i}{KbT}}$$
+
+Given a temperature T the system will evolve in order to minimize the energy. We will be using the Metropolis algorithm, a single spin direction of the system will be chnaged and accepted or rejected depending of 
 
 
 
