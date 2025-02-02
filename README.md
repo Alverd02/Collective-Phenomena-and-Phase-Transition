@@ -19,7 +19,7 @@ This function gives a "weight" to each state of the system given its energy $E_i
 
 $$P_i=\frac{e^{\frac{E_i}{KbT}}}{Z}$$
 
-Given a temperature T the system will evolve in order to minimize the energy. We will be using the Metropolis algorithm, a single spin direction of the system will be chnaged. If this change decreases the energy, we accept it, otherwise, we will accept the change with a distribution $e^{\frac{\Delta H}{KbT}}$ i. e. we will generate a raondom number $q$ between (0,1) and accept the change if $q<e^{\frac{\Delta H}{KbT}}$.
+Given a temperature T the system will evolve in order to minimize the energy. We will be using the Metropolis algorithm, a single spin direction of the system will be chnaged. If this change decreases the energy, we accept it, otherwise, we will accept the change with a distribution $e^{\frac{\Delta H}{KbT}}$, i. e. we will generate a raondom number $q$ between (0,1) and accept the change if $q<e^{\frac{\Delta H}{KbT}}$.
 
 
 
