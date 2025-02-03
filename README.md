@@ -25,4 +25,5 @@ Given a temperature T the system will evolve in order to minimize the energy. We
 We will run this algorithm MCSTEP(Monte-Carlo steps) number of times and each one of this will have N (number of spins) spin changes. At the end of each MCSTEP we will compute the physics variables desired and make the average.
 
 
+## -Details
 
