@@ -43,3 +43,5 @@ Convergence of the algorithm. Low temperatures tend to minimize the energy and t
   <img src="Practica%203/MontaneAlbert/c.png" alt="conv_e" width="400" height="300"/>
   <img src="Practica%203/MontaneAlbert/x.png" alt="ex2" width="400" height="300"/>
 </div>
+
+Evolution of different variables in terms of T with different system sizes. Again, low temoeratures minimal energy and ordered system. The curvature indicates the phase transition that takes place at $T_c$
