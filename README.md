@@ -39,9 +39,13 @@ Convergence of the algorithm. Low temperatures tend to minimize the energy and t
   <img src="Practica%203/MontaneAlbert/e.png" alt="conv_e" width="400" height="300"/>
   <img src="Practica%203/MontaneAlbert/m.png" alt="ex2" width="400" height="300"/>
 </div>
+
+
+Evolution ofenergy and magnetization in terms of T with different system sizes. Again, low temoeratures minimal energy and ordered system, high temperatures bigger energy and not ordered system. The curvature indicates the phase transition, that takes place at $T_c$.
+
 <div style="display: flex; justify-content: center; align-items: center;">
   <img src="Practica%203/MontaneAlbert/c.png" alt="conv_e" width="400" height="300"/>
   <img src="Practica%203/MontaneAlbert/x.png" alt="ex2" width="400" height="300"/>
 </div>
 
-Evolution of different variables in terms of T with different system sizes. Again, low temoeratures minimal energy and ordered system. The curvature indicates the phase transition that takes place at $T_c$
+Evolution of heat capacity and magnetic susceptibility. Note the peak that diverges, also happens at $T_c$.
