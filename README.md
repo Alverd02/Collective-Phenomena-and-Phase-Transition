@@ -31,3 +31,15 @@ We will run this algorithm MCSTEP(Monte-Carlo steps) number of times and each on
   <img src="Practica%202/MontaneAlbert/conv_e.png" alt="conv_e" width="400" height="300"/>
   <img src="Practica%202/MontaneAlbert/conv_m.png" alt="ex2" width="400" height="300"/>
 </div>
+
+Convergence of the algorithm. Low temperatures tend to minimize the energy and to order the system(same spin direccion, in this case -1). At high temperatures, the energy increases and the system is no longer ordered (spins take +1 or -1 randomly) so, the magnetization stays around 0. At T=2.3, we see that the energy is very distanced compering to the other, also, the magnetization doesn't converge. That's because we are deling with the critical temperature, the system is changing phase and having a lot of fluctuations.
+
+
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="Practica%203/MontaneAlbert/e.png" alt="conv_e" width="400" height="300"/>
+  <img src="Practica%203/MontaneAlbert/m.png" alt="ex2" width="400" height="300"/>
+</div>
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="Practica%203/MontaneAlbert/c.png" alt="conv_e" width="400" height="300"/>
+  <img src="Practica%203/MontaneAlbert/x.png" alt="ex2" width="400" height="300"/>
+</div>
