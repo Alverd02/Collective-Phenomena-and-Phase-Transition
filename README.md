@@ -29,5 +29,5 @@ We will run this algorithm MCSTEP(Monte-Carlo steps) number of times and each on
 
 
 <p align="center">
-  <img src="Practica%201/MontaneAlbert/ex2.jpeg" alt="ex2" width="400" height="300"/>
+  <img src="Practica%202/MontaneAlbert/conv_e.png" alt="ex2" width="400" height="300"/>
 </p>
