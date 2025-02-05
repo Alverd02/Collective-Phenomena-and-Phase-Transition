@@ -28,6 +28,6 @@ We will run this algorithm MCSTEP(Monte-Carlo steps) number of times and each on
 ## -Details
 
 
-<p align="center">
+<p>
   <img src="Practica%202/MontaneAlbert/conv_e.png" alt="ex2" width="400" height="300"/>
 </p>
